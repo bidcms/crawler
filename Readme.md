@@ -1,3 +1,5 @@
+```javascript
+
 FROM alpine:latest
 
 RUN echo @edge https://mirror.tuna.tsinghua.edu.cn/alpine/latest-stable/community >> /etc/apk/repositories 
@@ -61,3 +63,4 @@ EXPOSE 8888
 EXPOSE 443 
 EXPOSE 3306 
 EXPOSE 8050
+```javascript
