@@ -12,3 +12,44 @@ class WeiboSpider(scrapy.Spider):
         for sel in response.xpath('//div[@id="app"]//div[contains(@class, "card9")]'):
             title = sel.xpath('.//div[@class="weibo-text"]/text()').extract_first()
             print('标题：', title)
+
+
+
+配置中间件：
+
+# -*- coding: utf-8 -*-
+from selenium import webdriver
+from scrapy.http import HtmlResponse
+import time
+from selenium.webdriver.chrome.options import Options
+
+
+class XintongSpiderMiddleware(object):
+
+    def __init__(self):
+        option = Options()
+        option.add_argument('--headless')
+        self.driver = webdriver.Chrome(executable_path="D:/Python/test3/chromedriver.exe",
+                                       chrome_options=option)
+
+    def process_request(self, request, spider):
+        self.driver.get(request.url)
+        print("页面开始渲染。。。")
+        self.driver.execute_script("scroll(0, 1000);")
+        time.sleep(1)
+        rendered_body = self.driver.page_source
+        print("页面完成渲染。。。")
+        return HtmlResponse(request.url, body=rendered_body, encoding="utf-8")
+
+    def spider_closed(self, spider, reason):
+        print('驱动关闭')
+        self.driver.close()
+        
+配置setting.py，修改如下配置
+
+USER_AGENT = 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36'
+ROBOTSTXT_OBEY = False
+DOWNLOADER_MIDDLEWARES = {
+    'scrapy.contrib.downloadermiddleware.useragent.UserAgentMiddleware': None,  # 关闭默认下载器
+    'xintong.middlewares.XintongSpiderMiddleware': 543,
+}
