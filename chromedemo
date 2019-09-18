@@ -1,0 +1,14 @@
+# -*- coding: utf-8 -*-
+import scrapy
+
+
+class WeiboSpider(scrapy.Spider):
+    name = 'weibo'
+    allowed_domains = ['weibo.com']
+    start_urls = ['https://m.weibo.cn/u/2937210565']
+
+    def parse(self, response):
+        print("返回渲染过的页面内容")
+        for sel in response.xpath('//div[@id="app"]//div[contains(@class, "card9")]'):
+            title = sel.xpath('.//div[@class="weibo-text"]/text()').extract_first()
+            print('标题：', title)
