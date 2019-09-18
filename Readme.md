@@ -32,8 +32,8 @@ RUN update-ca-certificates
 RUN apk add --no-cache tzdata 
 RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime 
 RUN echo "Asia/Shanghai" > /etc/timezone
-
-RUN rm -rf /var/cache/apk/* /tmp/* /var/tmp/* $HOME/.cache ## 清除缓存 
+## 清除缓存 
+RUN rm -rf /var/cache/apk/* /tmp/* /var/tmp/* $HOME/.cache
 RUN pip install --upgrade pip 
 RUN pip install Scrapy
 
