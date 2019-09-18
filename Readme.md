@@ -1,54 +1,54 @@
 ```javascript
-FROM alpine:latest
+FROM alpine
 
 RUN echo @edge https://mirror.tuna.tsinghua.edu.cn/alpine/latest-stable/community >> /etc/apk/repositories 
-&& echo @edge https://mirror.tuna.tsinghua.edu.cn/alpine/latest-stable/main >> /etc/apk/repositories RUN apk update && apk upgrade
+RUN echo @edge https://mirror.tuna.tsinghua.edu.cn/alpine/latest-stable/main >> /etc/apk/repositories RUN apk update RUN apk upgrade
 
-RUN apk -U add 
-gcc 
-bash 
-bash-doc 
-bash-completion 
-libffi-dev 
-libxml2-dev 
-libxslt-dev 
-libevent-dev 
-musl-dev 
-openssl-dev 
-python-dev 
-py-imaging 
-py-pip 
-vim 
-git 
-redis 
-libexif 
-curl 
-ca-certificates 
-udev 
-chromium 
-chromium-chromedriver 
-&& update-ca-certificates
+RUN apk -U add \
+gcc \
+bash \
+bash-doc \
+bash-completion \
+libffi-dev \
+libxml2-dev \
+libxslt-dev \
+libevent-dev \
+musl-dev \
+openssl-dev \
+python-dev \
+py-imaging \
+py-pip \
+vim \
+git \
+redis \
+libexif \
+curl \
+ca-certificates \
+udev \
+chromium \
+chromium-chromedriver
+RUN update-ca-certificates
 
 RUN apk add --no-cache tzdata 
-&& ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime 
-&& echo "Asia/Shanghai" > /etc/timezone
+RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime 
+RUN echo "Asia/Shanghai" > /etc/timezone
 
 RUN rm -rf /var/cache/apk/* /tmp/* /var/tmp/* $HOME/.cache ## 清除缓存 
 RUN pip install --upgrade pip 
-&& pip install Scrapy
+RUN pip install Scrapy
 
 RUN pip install scrapyd 
-&& pip install scrapyd-client 
-&& pip install scrapy-redis 
-&& pip install scrapy-splash 
-&& pip install scrapydweb 
-&& pip install selenium
+RUN pip install scrapyd-client 
+RUN pip install scrapy-redis 
+RUN pip install scrapy-splash 
+RUN pip install scrapydweb 
+RUN pip install selenium
 
 RUN pip install fake_useragent 
-&& pip install scrapy_proxies 
-&& pip install sqlalchemy 
-&& pip install mongoengine 
-&& pip install redis
+RUN pip install scrapy_proxies 
+RUN pip install sqlalchemy 
+RUN pip install mongoengine 
+RUN pip install redis
 
 WORKDIR /runtime/app RUN git clone https://github.com/scrapinghub/splash/
 
