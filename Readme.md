@@ -33,7 +33,8 @@ RUN apk add --no-cache tzdata
 && ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime 
 && echo "Asia/Shanghai" > /etc/timezone
 
-RUN rm -rf /var/cache/apk/* /tmp/* /var/tmp/* $HOME/.cache ## 清除缓存 RUN pip install --upgrade pip 
+RUN rm -rf /var/cache/apk/* /tmp/* /var/tmp/* $HOME/.cache ## 清除缓存 
+RUN pip install --upgrade pip 
 && pip install Scrapy
 
 RUN pip install scrapyd 
