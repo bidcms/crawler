@@ -50,7 +50,8 @@ RUN pip install sqlalchemy
 RUN pip install mongoengine 
 RUN pip install redis
 
-WORKDIR /runtime/app RUN git clone https://github.com/scrapinghub/splash/
+WORKDIR /runtime/app 
+RUN git clone https://github.com/scrapinghub/splash/
 
 EXPOSE 5000 
 EXPOSE 6800 
